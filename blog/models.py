@@ -5,6 +5,14 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
+class PublishedManager(models.Manager):
+    """New context manager for the publish var."""
+
+    def get_queryset(self):
+        """Overwrite QuerySet."""
+        return super().get_queryset().filter(status='published')
+
+
 class Post(models.Model):
     """This is the data model for blog articles."""
 
@@ -23,6 +31,8 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(
         max_length=10, choices=STATUS_CHOICES, default='draft')
+    objects = models.Manager()
+    published = PublishedManager()
 
     class Meta:
         """Meta data for post class.
