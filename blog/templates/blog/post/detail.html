@@ -10,6 +10,19 @@
         <a href="{% url "blog:post_share" post.id %}">Расшарить этот пост</a>
     </p>
 
+
+    <h2> Рекомендуемые статьи:</h2>
+    {% for sim_post in similar_posts %}
+         <p>
+            <a href="{{ sim_post.get_absolute_url }}">
+                {{ sim_post.title }}
+            </a>
+         </p>
+    {% empty %}
+        Нет рекомендуемых постов.
+    {% endfor %}
+
+
     {% with comments.count as total_comments %}
         <h2>Всего {{ total_comments }} комментариев(я) </h2>
     {% endwith %}
