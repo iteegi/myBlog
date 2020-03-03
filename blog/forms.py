@@ -22,3 +22,9 @@ class CommentForm(forms.ModelForm):
 
         model = Comment
         fields = ('name', 'email', 'body')
+
+
+class SearchForm(forms.Form):
+    """Form for the search."""
+
+    query = forms.CharField()
